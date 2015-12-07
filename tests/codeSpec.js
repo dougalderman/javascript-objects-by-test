@@ -20,7 +20,7 @@ Functions as Objects
   })
 
   it('Can be made with "new Object"', function(){
-    expect(makeEmptyObjectNew).toEqual(jasmine.Any(Object))
+    expect(makeEmptyObjectNew()).toEqual({});
   })
 
   describe('Use key value pairs', function(){
@@ -73,8 +73,9 @@ Functions as Objects
     })
 
     it('can have values that are functions, like sayHi', function(){
+      var resultObj = makeFunctionObject()
       expect(
-        makeFunctionObject().sayHi()
+        resultObj.sayHi()
       ).toEqual(
         "Hi"
       )
@@ -155,11 +156,11 @@ Functions as Objects
         }
     })
 
-    it('can access any property by using a dot after the variable name', function(){
+    it('can access any property by using square bracket notation', function(){
       expect(returnUrlPropertySquare(website)).toEqual('www.worldwideweb.com');
     })
 
-    it('can access any property by using a dot after the variable name, nested', function(){
+    it('can access any property by using square bracket notation, nested', function(){
       expect(returnSubdomainUserCountSquare(website)).toEqual(5000);
     })
 
@@ -182,6 +183,7 @@ Functions as Objects
     }).toEqual({
       second: 'second',
       third: 'third',
+      first: 'first'
     })
   })
 
@@ -191,11 +193,11 @@ Functions as Objects
         first: 'first',
         second: 'second',
         third: 'third'
-      }).toBe({
+      })
+      ).toEqual({
         first: 'first',
         third: 'third'
       })
-    )
   })
 
   it('Can be looped through with for(var in obj)', function(){
@@ -213,12 +215,11 @@ Functions as Objects
     })
 
     it('can add properties to a function', function(){
-      var myFunc = function(){
-
+      var myFunc = function() {
       }
-      myFunc.first = "first";
-      myFunc.second = "second";
-      myFunc.third = "third";
+        myFunc.first = "first";
+        myFunc.second = "second";
+        myFunc.third = "third";
 
       expect(getValuesFromObject(myFunc)).toEqual(["first", "second", "third"])
     })
